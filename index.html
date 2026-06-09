@@ -21,7 +21,7 @@
       const container = document.getElementById("message-container");
 
       const { port } = window.location;
-      const connection = new WebSocket(`wss://web-socket-demo-1b7x.onrender.com`);
+      const connection = new WebSocket(`ws://localhost:${port}`);
       connection.onopen = () => {
         btn.addEventListener("click", (e) => {
           const msg = input.value;
