@@ -6,6 +6,14 @@ import fs from "node:fs/promises";
 const port = process.env.PORT ?? 3000;
 
 const httpServer = http.createServer(async (req, res) => {
+  if ((req.method === "GET" || req.method === "HEAD") && req.url === "/health") {
+    res.writeHead(200, {
+      "content-type": "application/json",
+    })
+
+    return req.method === "HEAD" ? res.end() : res.end(JSON.stringify({ status: 'OK' }))
+  }
+
   const index = await fs.readFile(path.resolve("./index.html"), "utf-8");
   res.setHeader("Content-Type", "text/html");
   return res.end(index);
