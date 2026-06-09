@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Socket Server</title>
+  </head>
+  <body>
+    <h1>Web Socket Server</h1>
+    <div>
+      <input type="text" />
+      <p id="error-container" style="display: none"></p>
+      <button>Send Message</button>
+      <div id="message-container"></div>
+    </div>
+    <script>
+      // dom elements
+      const btn = document.querySelector("button");
+      const input = document.querySelector("input");
+      const err = document.getElementById("error-container");
+      const container = document.getElementById("message-container");
+
+      const { port } = window.location;
+      const connection = new WebSocket(`ws://localhost:${port}`);
+      connection.onopen = () => {
+        btn.addEventListener("click", (e) => {
+          const msg = input.value;
+          connection.send(msg);
+          input.value = "";
+        });
+      };
+      connection.onmessage = (event) => {
+        const text = event.data;
+        console.log(text);
+        const p = document.createElement("p");
+        p.textContent = text;
+        container.appendChild(p);
+      };
+    </script>
+  </body>
+</html>
