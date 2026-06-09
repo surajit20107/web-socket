@@ -21,7 +21,7 @@
       const container = document.getElementById("message-container");
 
       const { port } = window.location;
-      const connection = new WebSocket(`https://web-socket-demo-1b7x.onrender.com`);
+      const connection = new WebSocket(`wss://web-socket-demo-1b7x.onrender.com`);
       connection.onopen = () => {
         btn.addEventListener("click", (e) => {
           const msg = input.value;
@@ -34,7 +34,7 @@
         console.log(text);
         const p = document.createElement("p");
         p.textContent = text;
-        container.appendChild(p);
+        container.prepend(p);
       };
     </script>
   </body>
